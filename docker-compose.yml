@@ -1,0 +1,77 @@
+services:
+  db:
+    build: ./db
+    image: myapp/db:${TAG:-latest}
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - db-data:/var/lib/mysql
+    networks: [app-net]
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -u root -p$$MYSQL_ROOT_PASSWORD --silent"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+    restart: unless-stopped
+
+  service-b:
+    build:
+      context: ./service-b
+      target: production
+    image: myapp/service-b:${TAG:-latest}
+    networks: [app-net]
+    restart: unless-stopped
+
+  service-a:
+    build:
+      context: ./service-a
+      target: production
+    image: myapp/service-a:${TAG:-latest}
+    environment:
+      DB_HOST: db
+      DB_NAME: ${DB_NAME}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      VALIDATOR_URL: http://service-b:3000
+    depends_on:
+      db:
+        condition: service_healthy
+      service-b:
+        condition: service_healthy
+    networks: [app-net]
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+      target: production
+      args:
+        BUILD_NUMBER: ${TAG:-dev}
+    image: myapp/frontend:${TAG:-latest}
+    networks: [app-net]
+    restart: unless-stopped
+
+  proxy:
+    build: ./proxy
+    image: myapp/proxy:${TAG:-latest}
+    ports:
+      - "8080:80"          # the only published port
+    depends_on:
+      service-a:
+        condition: service_healthy
+      service-b:
+        condition: service_healthy
+      frontend:
+        condition: service_healthy
+    networks: [app-net]
+    restart: unless-stopped
+
+networks:
+  app-net:
+
+volumes:
+  db-data:
