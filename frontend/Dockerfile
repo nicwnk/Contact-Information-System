@@ -1,5 +1,5 @@
 # ---- build stage: compile the React app ----
-FROM node:20.18.1-slim AS build
+FROM node:22.12.0-slim AS build
 WORKDIR /app
 COPY package*.json ./
 RUN if [ -f package-lock.json ]; then npm ci; else npm install; fi
