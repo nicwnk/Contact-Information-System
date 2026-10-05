@@ -1500,7 +1500,7 @@ function Home() {
       )}
 
       <footer id="build">
-        Phase 6 Update - Build 2
+        Phase 6 Update - Build 3
       </footer>
 
     </div>
