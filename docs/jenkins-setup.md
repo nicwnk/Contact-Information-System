@@ -84,3 +84,5 @@ The frontend and proxy have no tests. M2 keeps this list up to date.
 
 - Jenkins has access to the Docker socket, so it effectively controls Docker on the host. Use it on a local machine only.
 - Never commit `.env`. It is listed in `.gitignore`.
+
+Phase 6 automatic trigger test.
