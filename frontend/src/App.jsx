@@ -1,3 +1,4 @@
+```jsx
 import { useEffect, useState } from "react";
 
 import {
@@ -448,16 +449,16 @@ function Home() {
 
   const [form, setForm] = useState({
 
-  first_name: "",
-  middle_initial: "",
-  last_name: "",
-  phone: "",
-  email: "",
-  personal_email: "",
-  address: "",
-  profile_picture: ""
+    first_name: "",
+    middle_initial: "",
+    last_name: "",
+    phone: "",
+    email: "",
+    personal_email: "",
+    address: "",
+    profile_picture: ""
 
-});
+  });
 
   const [selectedCountry, setSelectedCountry] =
     useState("PH");
@@ -805,9 +806,6 @@ function Home() {
       let phoneNumber =
         form.phone.trim();
 
-      // Remove spaces, dashes,
-      // and parentheses
-
       phoneNumber =
         phoneNumber.replace(
           /[\s\-()]/g,
@@ -817,10 +815,6 @@ function Home() {
       // ==========================
       // PHILIPPINES FORMAT
       // ==========================
-
-      // 09600828957
-      // becomes
-      // 9600828957
 
       if (
         selectedCountry === "PH" &&
@@ -940,16 +934,16 @@ function Home() {
 
       setForm({
 
-  first_name: "",
-  middle_initial: "",
-  last_name: "",
-  phone: "",
-  email: "",
-  personal_email: "",
-  address: "",
-  profile_picture: ""
+        first_name: "",
+        middle_initial: "",
+        last_name: "",
+        phone: "",
+        email: "",
+        personal_email: "",
+        address: "",
+        profile_picture: ""
 
-});
+      });
 
       setSelectedCountry("PH");
 
@@ -1110,16 +1104,16 @@ function Home() {
             onChange={handleChange}
             required
           />
-          
+
           {/* MIDDLE INITIAL */}
 
           <input
-          type="text"
-          name="middle_initial"
-          placeholder="Middle Initial (Optional)"
-          value={form.middle_initial}
-          onChange={handleChange}
-          maxLength="2"
+            type="text"
+            name="middle_initial"
+            placeholder="Middle Initial (Optional)"
+            value={form.middle_initial}
+            onChange={handleChange}
+            maxLength="2"
           />
 
           {/* LAST NAME */}
@@ -1171,22 +1165,20 @@ function Home() {
 
               </select>
 
-              {/* phone number */}
-
               <input
-              type="tel"
-              name="phone"
-              placeholder="Phone Number"
-              value={form.phone}
-              onChange={handleChange}
-              required
+                type="tel"
+                name="phone"
+                placeholder="Phone Number"
+                value={form.phone}
+                onChange={handleChange}
+                required
               />
-            
+
             </div>
 
           </div>
 
-                    {/* PERSONAL EMAIL */}
+          {/* PERSONAL EMAIL */}
 
           <input
             type="email"
@@ -1252,8 +1244,6 @@ function Home() {
                 : "◎ Use My Current Location"}
 
             </button>
-
-            {/* MAP */}
 
             {showMap && (
 
@@ -1509,6 +1499,10 @@ function Home() {
 
       )}
 
+      <footer id="build">
+        Phase 6 Update - Build 2
+      </footer>
+
     </div>
 
   );
@@ -1535,8 +1529,6 @@ function Contacts() {
 
   const [contactToDelete, setContactToDelete] =
     useState(null);
-
-  // GET CONTACTS
 
   const getContacts = async () => {
 
@@ -1571,8 +1563,6 @@ function Contacts() {
 
   }, []);
 
-  // SEARCH
-
   const handleSearch = () => {
 
     const searchText =
@@ -1605,8 +1595,6 @@ function Contacts() {
 
   };
 
-  // CLEAR SEARCH
-
   const clearSearch = () => {
 
     setSearch("");
@@ -1617,8 +1605,6 @@ function Contacts() {
 
   };
 
-  // OPEN DELETE
-
   const openDeleteModal = (contact) => {
 
     setContactToDelete(contact);
@@ -1627,8 +1613,6 @@ function Contacts() {
 
   };
 
-  // CANCEL DELETE
-
   const cancelDelete = () => {
 
     setShowDeleteModal(false);
@@ -1636,8 +1620,6 @@ function Contacts() {
     setContactToDelete(null);
 
   };
-
-  // CONFIRM DELETE
 
   const confirmDelete = async () => {
 
@@ -1892,8 +1874,8 @@ function Contacts() {
 
                   {contact.first_name}{" "}
                   {contact.middle_initial
-                      ? `${contact.middle_initial} `
-                           : ""}
+                    ? `${contact.middle_initial} `
+                    : ""}
                   {contact.last_name}
 
                 </span>
@@ -2184,14 +2166,22 @@ function ContactProfile() {
           </div>
 
           <div className="profile-info-item">
-            <span>PERSONAL EMAIL</span>
-            <p>{contact.personal_email || "Not provided"}</p>
+
+            <span>
+              PERSONAL EMAIL
+            </span>
+
+            <p>
+              {contact.personal_email ||
+                "Not provided"}
+            </p>
+
           </div>
 
           <div className="profile-info-item">
 
             <span>
-             WORK EMAIL
+              WORK EMAIL
             </span>
 
             <p>
@@ -2269,3 +2259,4 @@ function App() {
 }
 
 export default App;
+```
