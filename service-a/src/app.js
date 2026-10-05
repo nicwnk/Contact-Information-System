@@ -34,7 +34,7 @@ function createApp({ getPool, validatorUrl } = {}) {
   };
 
   // Does not touch the database.
-  app.get("/health", (req, res) => res.json({ status: "ok", service: "service-a" }));
+  app.get("/health", (req, res) => res.json({ status: "broken", service: "service-a" }));
 
   app.get("/", async (req, res) => {
     try {
