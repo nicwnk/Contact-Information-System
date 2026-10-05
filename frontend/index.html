@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Contact Information System</title>
+    <link rel="icon" type="image/png" href="contact.png" />
+  </head>
+
+  <body>
+    <div id="root"></div>
+    <footer id="build" style="position:fixed;bottom:4px;right:8px;font:12px sans-serif;opacity:.6">Build: dev</footer>
+    <script>
+      fetch("/version.txt").then(function (r) { return r.ok ? r.text() : ""; })
+        .then(function (t) { if (t.trim()) document.getElementById("build").textContent = "Build " + t.trim(); })
+        .catch(function () {});
+    </script>
+
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
