@@ -1,35 +1,63 @@
-# Contact-Information-System
+# Contact Information System
 
-A contact manager split into three containerized modules behind one reverse proxy.
+A containerized contact management system that allows users to view, add, edit, and manage contact information through a web interface.
 
-| Container | Role | Stack |
+## Project Overview
+
+The Contact Information System is a web-based application built using a multi-container architecture. The system separates the frontend, contact API, validation service, database, and reverse proxy into different containers.
+
+All application traffic enters through the Nginx reverse proxy on port 8080.
+
+## Features
+
+- View contact information
+- Add new contacts
+- Edit existing contacts
+- Delete contacts
+- Validate phone numbers and email addresses
+- Search and manage contact records
+- Persistent database storage
+- Automated testing through Jenkins
+- Docker-based deployment
+- CI/CD pipeline with build, test, deploy, and smoke-test stages
+
+## System Components
+
+| Container | Role | Technology |
 |---|---|---|
-| `proxy` | Only entry point, port 8080 | nginx |
-| `frontend` | Contact list, add/edit form, build label | React + Vite, served by nginx |
-| `service-a` | Contacts API (reads/writes the database) | Node.js, Express |
-| `service-b` | Validation service (phone/email) | Node.js, Express |
-| `db` | Storage (named volume `db-data`) | MySQL 8 |
+| `proxy` | Main entry point and reverse proxy | Nginx |
+| `frontend` | User interface and contact management pages | React + Vite |
+| `service-a` | Contacts API and database operations | Node.js + Express |
+| `service-b` | Phone and email validation service | Node.js + Express |
+| `db` | Stores contact information | MySQL 8 |
 
-Routes: `/` frontend, `/api/contacts/` service-a, `/api/validate/` service-b.
+Only the `proxy` container publishes a host port.
 
-## Run
+### Routes
 
-```
-cp .env.example .env      # then edit the passwords
-docker compose up -d --build
-```
+| Route | Purpose |
+|---|---|
+| `/` | Frontend application |
+| `/api/contacts/` | Contact management API |
+| `/api/validate/` | Validation API |
 
-Open http://localhost:8080. Check everything with `sh scripts/smoke-test.sh`.
+## Technologies Used
 
-## Tests
+- React
+- Vite
+- Node.js
+- Express
+- MySQL 8
+- Nginx
+- Docker
+- Docker Compose
+- Jenkins
+- GitHub
 
-Each service has tests that need no database. Run them the way Jenkins does:
+## Running the Application
 
-```
-docker build --target test -t myapp/service-a:test ./service-a
-docker build --target test -t myapp/service-b:test ./service-b
-```
+### 1. Clone the repository
 
-## Team and meeting schedule
-
-(TODO: fill in members, roles and meeting times.)
+```bash
+git clone https://github.com/nicwnk/Contact-Information-System.git
+cd Contact-Information-System
